@@ -49,28 +49,28 @@ public class Login extends Fragment {
 
         binding = LoginBinding.inflate(inflater, container, false);
 
-        binding.determinateBar.setVisibility(View.INVISIBLE);
+        hideProgressBar();
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
         if (currentUser != null){
-            binding.determinateBar.setVisibility(View.VISIBLE);
+            showProgressBar();
             Intent mainIntent = new Intent(getContext(), MainActivity.class);
             startActivity(mainIntent);
-            binding.determinateBar.setVisibility(View.INVISIBLE);
+            hideProgressBar();
             getActivity().finish();
         }
 
         binding.loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (binding.emailLoginEdt.getText().toString().equals(""))
-                    binding.emailLoginEdt.setError("Enter an email");
+                if (binding.emailRegisterEdt.getText().toString().equals(""))
+                    binding.emailRegisterEdt.setError("Enter an email");
                 if (binding.passwordLoginEdt.getText().toString().equals(""))
                     binding.passwordLoginEdt.setError("Enter Password");
-                if (!binding.emailLoginEdt.getText().toString().equals("") && !binding.passwordLoginEdt.getText().toString().equals(""))
-                    loginUser(binding.emailLoginEdt.getText().toString(), binding.passwordLoginEdt.getText().toString());
+                if (!binding.emailRegisterEdt.getText().toString().equals("") && !binding.passwordLoginEdt.getText().toString().equals(""))
+                    loginUser(binding.emailRegisterEdt.getText().toString(), binding.passwordLoginEdt.getText().toString());
             }
         });
 
