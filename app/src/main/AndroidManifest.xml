@@ -14,10 +14,15 @@
         android:theme="@style/Theme.Mi_trip"
         tools:targetApi="31">
         <activity
+            android:name=".ui.home.UpcomingTripsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_upcoming_trips"
+            android:theme="@style/Theme.Mi_trip.NoActionBar" />
+        <activity
             android:name=".ui.user.UserActivity"
             android:exported="true"
             android:label="@string/title_activity_user"
-            android:theme="@style/Theme.Mi_trip.NoActionBar" >
+            android:theme="@style/Theme.Mi_trip.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

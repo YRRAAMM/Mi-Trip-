@@ -1,4 +1,4 @@
-package com.example.mi_trip.pojo;
+package com.example.mi_trip.models;
 
 import java.io.Serializable;
 import java.util.ArrayList;

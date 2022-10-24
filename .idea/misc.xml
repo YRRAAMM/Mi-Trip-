@@ -3,13 +3,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/ic_history.xml" value="0.175" />
+        <entry key="app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.175" />
+        <entry key="app/src/main/res/drawable/ic_logout.xml" value="0.175" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_upcoming_trips.xml" value="0.22239583333333332" />
         <entry key="app/src/main/res/layout/activity_user.xml" value="0.23020833333333332" />
+        <entry key="app/src/main/res/layout/app_bar_upcoming_trips.xml" value="0.22239583333333332" />
+        <entry key="app/src/main/res/layout/content_upcoming_trips.xml" value="0.22239583333333332" />
         <entry key="app/src/main/res/layout/content_user.xml" value="0.23020833333333332" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.23020833333333332" />
+        <entry key="app/src/main/res/layout/fragment_gallery.xml" value="0.22239583333333332" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.23020833333333332" />
         <entry key="app/src/main/res/layout/login.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/nav_header_upcoming_trips.xml" value="0.22239583333333332" />
         <entry key="app/src/main/res/layout/sign_up.xml" value="0.33240740740740743" />
+        <entry key="app/src/main/res/menu/activity_main_drawer.xml" value="0.5" />
       </map>
     </option>
   </component>

@@ -1,4 +1,4 @@
-package com.example.mi_trip.pojo;
+package com.example.mi_trip.models;
 
 public class UserModel {
     public String name;

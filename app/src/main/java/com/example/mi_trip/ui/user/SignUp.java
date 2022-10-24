@@ -1,13 +1,11 @@
 package com.example.mi_trip.ui.user;
 
 import static android.app.Activity.RESULT_OK;
-import static android.content.ContentValues.TAG;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +17,8 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.mi_trip.R;
 import com.example.mi_trip.databinding.SignUpBinding;
-import com.example.mi_trip.pojo.UserModel;
-import com.example.mi_trip.ui.MainActivity;
+import com.example.mi_trip.models.UserModel;
+import com.example.mi_trip.ui.home.UpcomingTripsActivity;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -32,8 +30,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class SignUp extends Fragment {
 
@@ -47,7 +47,7 @@ public class SignUp extends Fragment {
     private String myUri = "";
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         binding = SignUpBinding.inflate(inflater, container, false);
 
@@ -57,46 +57,34 @@ public class SignUp extends Fragment {
 
         hideProgressBar();
 
-        binding.profileImageRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openGallery();
-            }
-        });
+        binding.profileImageRegister.setOnClickListener(v -> openGallery());
 
-        binding.signupBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (binding.nameRegisterEdt.getText().toString().equals(""))
-                    binding.nameRegisterEdt.setError("Please enter your name");
-                if (binding.emailRegisterEdt.getText().toString().equals(""))
-                    binding.emailRegisterEdt.setError("Please enter your email");
-                if (binding.phoneRegisterEdt.getText().toString().equals(""))
-                    binding.phoneRegisterEdt.setError("Please enter your Phone number");
-                if (binding.passwordRegisterEdt.getText().toString().equals(""))
-                    binding.passwordRegisterEdt.setError("Please enter your password");
-                if (binding.rePasswordRegisterEdt.getText().toString().equals(""))
-                    binding.rePasswordRegisterEdt.setError("Please enter your password again");
+        binding.signupBtn.setOnClickListener(v -> {
+            if (binding.nameRegisterEdt.getText().toString().equals(""))
+                binding.nameRegisterEdt.setError("Please enter your name");
+            if (binding.emailRegisterEdt.getText().toString().equals(""))
+                binding.emailRegisterEdt.setError("Please enter your email");
+            if (binding.phoneRegisterEdt.getText().toString().equals(""))
+                binding.phoneRegisterEdt.setError("Please enter your Phone number");
+            if (binding.passwordRegisterEdt.getText().toString().equals(""))
+                binding.passwordRegisterEdt.setError("Please enter your password");
+            if (binding.rePasswordRegisterEdt.getText().toString().equals(""))
+                binding.rePasswordRegisterEdt.setError("Please enter your password again");
+            else {
+                if (binding.passwordRegisterEdt.getText().toString().equals(binding.rePasswordRegisterEdt.getText().toString())) {
+                    CreateUserAccount(
+                            binding.emailRegisterEdt.getText().toString(),
+                            binding.passwordRegisterEdt.getText().toString());
+                }
                 else {
-                    if (binding.passwordRegisterEdt.getText().toString().equals(binding.rePasswordRegisterEdt.getText().toString())) {
-                        CreateUserAccount(
-                                binding.emailRegisterEdt.getText().toString(),
-                                binding.passwordRegisterEdt.getText().toString());
-                    }
-                    else {
-                        binding.rePasswordRegisterEdt.setError("passowrd doesn't match");
-                    }
+                    binding.rePasswordRegisterEdt.setError("passowrd doesn't match");
                 }
             }
         });
 
-        binding.buttonSecond.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(SignUp.this)
-                        .navigate(R.id.action_SecondFragment_to_FirstFragment);
-            }
-        });
+        binding.loginRegisterBtn.setOnClickListener(v ->
+            NavHostFragment.findNavController(SignUp.this)
+                    .navigate(R.id.action_SecondFragment_to_FirstFragment));
 
         return binding.getRoot();
 
@@ -106,7 +94,7 @@ public class SignUp extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         mAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
 
     }
 
@@ -121,7 +109,7 @@ public class SignUp extends Fragment {
         // this method create user account with specific email and password
 //        mProgressBar.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(requireActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
@@ -131,7 +119,7 @@ public class SignUp extends Fragment {
                         else
                         {
                             hideProgressBar();
-                            showMessage("account creation failed" + task.getException().getMessage());
+                            showMessage("account creation failed" + Objects.requireNonNull(task.getException()).getMessage());
                         }
                     }
                 });
@@ -145,7 +133,7 @@ public class SignUp extends Fragment {
                 binding.phoneRegisterEdt.getText().toString());
 
 
-        mDatabaseReference.child(mAuth.getCurrentUser().getUid())
+        mDatabaseReference.child(Objects.requireNonNull(mAuth.getCurrentUser()).getUid())
                 .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -171,13 +159,13 @@ public class SignUp extends Fragment {
         hideProgressBar();
         if (user != null) {
 
-            Intent mainIntent = new Intent(getContext(), MainActivity.class);
+            Intent mainIntent = new Intent(getContext(), UpcomingTripsActivity.class);
 //            mainIntent.putExtra("username", nameField.getText().toString());
             startActivity(mainIntent);
-            getActivity().finish();
+            requireActivity().finish();
 
         } else {
-            binding.textViewStatus.setText("Invalid Credentials");
+            binding.textViewStatus.setText(R.string.Invalid_credentials);
         }
     }
 
@@ -190,38 +178,32 @@ public class SignUp extends Fragment {
         if (imageUri != null) {
             final StorageReference fileRef = mStorageReferencePicsRef
                     .child("Users")
-                    .child(mAuth.getCurrentUser().getUid()+".jpg");
-            StorageTask uploadTask = fileRef.putFile(imageUri);
+                    .child(Objects.requireNonNull(mAuth.getCurrentUser()).getUid()+".jpg");
+            StorageTask<UploadTask.TaskSnapshot> uploadTask = fileRef.putFile(imageUri);
 
-            uploadTask.continueWithTask(new Continuation() {
-                @Override
-                public Object then(@NonNull Task task) throws Exception {
+            uploadTask.continueWithTask((Continuation) task -> {
 
-                    if (!task.isSuccessful()) {
-                        throw task.getException();
-                    }
-
-                    return fileRef.getDownloadUrl();
+                if (!task.isSuccessful()) {
+                    throw task.getException();
                 }
-            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                @Override
-                public void onComplete(@NonNull Task<Uri> task) {
-                    if (task.isSuccessful()) {
-                        Uri downloadUrl = task.getResult();
-                        myUri = downloadUrl.toString();
 
-                        HashMap<String, Object> userMap = new HashMap<>();
-                        userMap.put("image", myUri);
+                return fileRef.getDownloadUrl();
+            }).addOnCompleteListener((OnCompleteListener<Uri>) task -> {
+                if (task.isSuccessful()) {
+                    Uri downloadUrl = task.getResult();
+                    myUri = downloadUrl.toString();
 
-                        mDatabaseReference
-                                .child(mAuth.getCurrentUser().getUid())
-                                .updateChildren(userMap);
+                    HashMap<String, Object> userMap = new HashMap<>();
+                    userMap.put("image", myUri);
 
-                        progressDialog.dismiss();
+                    mDatabaseReference
+                            .child(mAuth.getCurrentUser().getUid())
+                            .updateChildren(userMap);
 
-                        FirebaseUser user = mAuth.getCurrentUser();
-                        updateUI(user);
-                    }
+                    progressDialog.dismiss();
+
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    updateUI(user);
                 }
             });
         } else {
