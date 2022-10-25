@@ -6,7 +6,6 @@ import java.util.List;
 
 public class TripModel implements Serializable {
 
-
     public String startloc,endloc,date,time,status,tripname,dateTime;
     private List<String> notes = new ArrayList<>();
     //@TODO add lat Long

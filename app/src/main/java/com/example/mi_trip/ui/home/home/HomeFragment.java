@@ -29,7 +29,7 @@ public class HomeFragment extends Fragment {
 
         final TextView textView = binding.textHome;
         homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        binding.LogoutBtn.setOnClickListener(v -> viewModel.signOut());
+//        binding.LogoutBtn.setOnClickListener(v -> viewModel.signOut());
         return root;
     }
 

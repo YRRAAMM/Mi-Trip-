@@ -6,23 +6,195 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.addButtonActivity.AddTripFragment">
 
-    <TextView
-        android:id="@+id/textview_first"
+    <ProgressBar
+        android:id="@+id/progressBar"
+
+        style="?android:attr/progressBarStyle"
+        android:layout_width="3dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/add_trip_btn"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_first_fragment"
-        app:layout_constraintBottom_toTopOf="@id/button_first"
+        android:layout_marginBottom="32dp"
+        android:requiresFadingEdge="horizontal|vertical"
+        android:text="@string/title_add_btn"
+        android:textColor="@color/white"
+        android:textSize="8pt"
+        app:layout_constraintBottom_toTopOf="@+id/cancel_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/cancel_btn"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="108dp"
+        android:layout_marginBottom="68dp"
+        android:requiresFadingEdge="horizontal|vertical"
+        android:text="@string/cancel"
+        android:textColor="@color/white"
+        android:textSize="8pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/add_trip_btn"
+        app:layout_constraintHorizontal_bias="0.65"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/trip_name_edt"
+        android:layout_width="335dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="36dp"
+        android:autofillHints=""
+        android:background="@android:drawable/editbox_background"
+        android:ems="10"
+        android:fontFamily="cursive"
+        android:hint="@string/trip_name"
+        android:inputType="textEmailAddress"
+        android:padding="12dp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/trip_name_edt">
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_weight="1"
+            android:hint="@string/date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/autoCompleteTVDestination"
+            app:startIconContentDescription="Pick Date"
+            app:startIconDrawable="@drawable/ic_date_range_24px">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/dateTextField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:focusable="false"
+
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_weight="1"
+            android:hint="@string/time"
+
+            app:startIconContentDescription="Pick Date"
+            app:startIconDrawable="@drawable/ic_schedule_24px">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/timeTextField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:focusable="false" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/repeat_spin_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <Spinner
+            android:id="@+id/repeat_spinner"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1" />
+
+        <Spinner
+            android:id="@+id/trip_way_spinner"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1" />
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/dummytv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/start_point"
+        android:textSize="6pt"
+        app:layout_constraintTop_toBottomOf="@+id/repeat_spin_linearlayout" />
+
+    <TextView
+        android:id="@+id/dummytv2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:text="@string/distination"
+        android:textSize="6pt"
+        app:layout_constraintTop_toBottomOf="@+id/start_autoComplete_Frag" />
+
+
+    <!--
+        if not working out of the box then try something else
+        like a EditText or something.
+    -->
+    <fragment
+        android:id="@+id/start_autoComplete_Frag"
+        android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/dummytv"
+        tools:layout_editor_absoluteX="8dp" />
+
+    <fragment
+        android:id="@+id/dest_autoComplete_Frag"
+        android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/dummytv2" />
 
     <Button
         android:id="@+id/button_first"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/next"
+        android:text="@string/add_a_note"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_first" />
+        app:layout_constraintTop_toBottomOf="@id/cancel_btn" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -30,4 +30,13 @@
     <string name="Invalid_credentials">Invalid Credentials</string>
     <string name="logout">Logout</string>
     <string name="todo">ToDo</string>
+    <string name="splash_image">splash_image</string>
+    <string name="title_add_btn">AddButton</string>
+    <string name="trip_name">Trip Name</string>
+    <string name="cancel">Cancel</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="start_point">Start Point</string>
+    <string name="distination">Distination</string>
+    <string name="add_a_note">Add a note</string>
 </resources>
