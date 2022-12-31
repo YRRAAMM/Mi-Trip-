@@ -39,4 +39,24 @@
     <string name="start_point">Start Point</string>
     <string name="distination">Distination</string>
     <string name="add_a_note">Add a note</string>
+    <string name="add_notes">Add Notes</string>
+    <string name="cancel_trip">Cancel Trip</string>
+    <string name="edit_trip">Edit Trip</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="view_notes">View Notes</string>
+    <string name="start_again">Start Again</string>
+    <string name="delete_trip">Delete Trip</string>
+
+    <string-array name="times_array">
+        <item>Don\'t Repeat</item>
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+    </string-array>
+
+    <string-array name="trip_direction_array">
+        <item>One way Trip</item>
+        <item>Round Trip</item>
+    </string-array>
 </resources>
